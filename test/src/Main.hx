@@ -1,8 +1,8 @@
-import pybind11.PyBind11;
+import pybind11.*;
 
 class Main {
 	static function main() {
-		trace("Hello, world!");
-		PyBind11.print();
+		var guard:ScopedInterpreter;
+		PyBind11.print("Hello, World!");
 	}
 }

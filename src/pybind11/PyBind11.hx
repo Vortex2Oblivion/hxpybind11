@@ -1,8 +1,11 @@
 package pybind11;
 
+import haxe.extern.EitherType;
+import cpp.Rest;
+import cpp.ConstCharStar;
+
 @:include("pybind11/embed.h")
-@:buildXml("<include name='${haxelib:hxpybind11}/build.xml' />")
 extern class PyBind11 {
     @:native("pybind11::print")
-    static function print():Void;
+    static function print(args:Rest<EitherType<ConstCharStar, Dynamic>>):Void;
 }

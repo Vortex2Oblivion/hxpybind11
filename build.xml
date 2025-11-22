@@ -35,9 +35,4 @@
 
 		<compilerflag value="-DCONFIG_64" />
 	</files>
-
-	
-	<target id="haxe" tool="linker" toolid="exe" >
-		<lib name="C:\Program Files\Python315\libs\python315.lib" />
-	</target>
 </xml>
