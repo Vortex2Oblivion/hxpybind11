@@ -1,0 +1,15 @@
+{
+    "name": "hxpybind11",
+    "url" : "https://github.com/Vortex2Oblivion/hxpybind11",
+    "license": "MIT",
+    "tags": ["hxcpp", "cpp", "bindings", "native", "python", "externs", "extern", "cython", "pybind11", "pybind", "bind"],
+    "description": "Haxe/hxcpp @:native bindings for pybind11",
+    "version": "1.0.0",
+    "releasenote": "Init",
+    "contributors": ["Vortex"],
+    "classPath": "src",
+    "dependencies": {
+      "hxcpp": "",
+      "cpphelpers": ""
+    }
+  }

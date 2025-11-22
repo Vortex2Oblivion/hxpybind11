@@ -1,0 +1,43 @@
+<xml>
+	<pragma once="true" />
+	<set name="pybind11_folder" value="${haxelib:hxpybind11}/external/pybind11/include" />
+	<set name="cpython_folder" value="${haxelib:hxpybind11}/external/cpython" />
+
+	<files id="__main__">
+		<compilerflag value="-I${cpython_folder}/Include" />
+		<compilerflag value="-I${cpython_folder}/Include/cpython" />
+		<compilerflag value="-I${cpython_folder}/Include/internal" />
+
+		<compilerflag value="-I${cpython_folder}/PC" />
+		<compilerflag value="-I${cpython_folder}/Modules/_decimal/libmpdec" />
+
+
+		<compilerflag value="-I${pybind11_folder}" />
+		<compilerflag value="-I${pybind11_folder}/conduit" />
+		<compilerflag value="-I${pybind11_folder}/detail" />
+        <compilerflag value="-I${pybind11_folder}/eigen" />
+        <compilerflag value="-I${pybind11_folder}/stl" />
+	</files>
+
+	<files id="haxe">
+		<compilerflag value="-I${cpython_folder}/Include" />
+		<compilerflag value="-I${cpython_folder}/Include/cpython" />
+		<compilerflag value="-I${cpython_folder}/Include/internal" />
+
+		<compilerflag value="-I${cpython_folder}/PC" />
+		<compilerflag value="-I${cpython_folder}/Modules/_decimal/libmpdec" />
+
+		<compilerflag value="-I${pybind11_folder}" />
+		<compilerflag value="-I${pybind11_folder}/conduit" />
+		<compilerflag value="-I${pybind11_folder}/detail" />
+        <compilerflag value="-I${pybind11_folder}/eigen" />
+        <compilerflag value="-I${pybind11_folder}/stl" />
+
+		<compilerflag value="-DCONFIG_64" />
+	</files>
+
+	
+	<target id="haxe" tool="linker" toolid="exe" >
+		<lib name="C:\Program Files\Python315\libs\python315.lib" />
+	</target>
+</xml>
