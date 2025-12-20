@@ -24,7 +24,7 @@ class BindModule {
 		var cl:ClassType = localClass.get();
 		var clMeta = cl.meta;
 
-        var outputCode:String = '';
+        var outputCode:String = clMeta.extract(':cppFileCode').length > 0 ? ExprTools.getValue(clMeta.extract(':cppFileCode')[0].params[0]) : "";
 
 		for (meta in clMeta.extract(':module')) {
 			var module:String = ExprTools.getValue(meta.params[0]);
