@@ -13,6 +13,7 @@
 
 
 		<compilerflag value="-I${pybind11_folder}" />
+		<compilerflag value="-I${pybind11_folder}/pybind11" />
 		<compilerflag value="-I${pybind11_folder}/conduit" />
 		<compilerflag value="-I${pybind11_folder}/detail" />
         <compilerflag value="-I${pybind11_folder}/eigen" />
@@ -28,6 +29,7 @@
 		<compilerflag value="-I${cpython_folder}/Modules/_decimal/libmpdec" />
 
 		<compilerflag value="-I${pybind11_folder}" />
+		<compilerflag value="-I${pybind11_folder}/pybind11" />
 		<compilerflag value="-I${pybind11_folder}/conduit" />
 		<compilerflag value="-I${pybind11_folder}/detail" />
         <compilerflag value="-I${pybind11_folder}/eigen" />
@@ -35,4 +37,8 @@
 
 		<compilerflag value="-DCONFIG_64" />
 	</files>
+
+	<target id="haxe">
+			<lib name="${cpython_folder}/libpython3.15d.a" />
+	</target>
 </xml>

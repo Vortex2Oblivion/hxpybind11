@@ -1,0 +1,5 @@
+--library hxpybind11
+--cpp test/bin/cpp
+--class-path src
+--class-path test/src
+--main Main
