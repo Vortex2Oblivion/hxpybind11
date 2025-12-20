@@ -8,4 +8,7 @@ import cpp.ConstCharStar;
 extern class PyBind11 {
     @:native("pybind11::print")
     static function print(args:Rest<EitherType<ConstCharStar, Dynamic>>):Void;
+
+    @:native("pybind11::exec")
+    static function exec(args:Rest<EitherType<ConstCharStar, Dynamic>>):Void;
 }

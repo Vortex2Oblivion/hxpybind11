@@ -8,7 +8,7 @@ import sys.io.Process;
 using StringTools;
 
 class BuildXML {
-	public static macro function run() {
+	public static macro function run():Void {
         var buildXML:String = 
         "@:buildXml(\"
             <include name='${haxelib:hxpybind11}/build.xml' />
@@ -41,6 +41,8 @@ class BuildXML {
         buildXML = buildXML.replace('__PYTHON__PATH__', foundPath.replace("python.exe", 'libs/python315.lib'));
         buildXML = buildXML.replace("\\", "/");*/
 
+        #if BUILD_CPYTHON
+
         var process:Process = new Process('haxelib', ['libpath', 'hxpybind11']);
         if (process.exitCode() != 0) {
 			var message:String = process.stderr.readAll().toString();
@@ -55,28 +57,20 @@ class BuildXML {
 
         var oldDir:String = Sys.getCwd();
 
-        var process:Process = new Process('haxelib', ['libpath', 'hxpybind11']);
-        if (process.exitCode() != 0) {
-			var message:String = process.stderr.readAll().toString();
-			var pos:Position = Context.currentPos();
-            process.close();
-			Context.error(message, pos);
-		}
-
         try{
-        Sys.command('cd $libpath/external/cpython');
-        Sys.command('./configure --with-pydebug');
-        Sys.command('make');
+            Sys.command('cd $libpath/external/cpython');
+            Sys.command('./configure --with-pydebug');
+            Sys.command('make');
         }
-        catch(e:Dynamic){
-        }
+        catch(e:Dynamic){}
         Sys.command('cd $oldDir');
+
+        #end
 
         
         buildXML = buildXML.replace('__PYTHON__LIB__FILE__', "${cpython_folder}/libpython3.15d.a");
         buildXML = buildXML.replace("\\", "/");
 
 		Compiler.addGlobalMetadata('pybind11', buildXML);
-        return macro null;
 	}
 }
