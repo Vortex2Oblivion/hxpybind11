@@ -7,6 +7,8 @@ import haxe.macro.Expr;
 import haxe.macro.Type;
 import haxe.macro.ExprTools;
 
+using StringTools;
+
 class BindModule {
 	private static function packageToNamepsace(pack:Array<String>) {
 		if (pack.length == 0)
@@ -34,10 +36,21 @@ class BindModule {
 			var cppFuncDefs = "";
 
 			for (funcData in funcs) {
-				var funcName = funcData[0];
+
+				var split = funcData[0].split('.');
+
+				var funcName = split[split.length - 1];
+
+
+				var className = cl.name;
+
+				if(funcName.split('.').length >= 1 && split[0] != funcName) {
+					className = split[0];
+				}
+
 				var funcDesc = funcData[1];
 
-				cppFuncDefs += 'm.def("$funcName", &${packageToNamepsace(cl.pack)}${cl.name}_obj::$funcName, "$funcDesc");\n';
+				cppFuncDefs += 'm.def("$funcName", &${packageToNamepsace(cl.pack)}${className}_obj::$funcName, "$funcDesc");\n';
 			}
 			var doc:String = try {
 				ExprTools.getValue(meta.params[2]);

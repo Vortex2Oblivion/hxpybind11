@@ -1,3 +1,4 @@
+import haxe.Json;
 import sys.io.File;
 import pybind11.*;
 
@@ -7,7 +8,7 @@ import pybind11.*;
 	["subtract", "A function that subtracts two numbers"]
 ], "pybind11 example plugin")
 @:module("haxemath", [
-	["random", "A function that returns a random number"],
+	["Math.random", "A function that returns a random number"]
 ], "haxe math functions")
 class Main {
 	static function add(a:Int, b:Int) {

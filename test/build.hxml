@@ -3,3 +3,4 @@
 --cpp bin
 --library hxpybind11
 --dce no
+--macro CopyFile.run()
