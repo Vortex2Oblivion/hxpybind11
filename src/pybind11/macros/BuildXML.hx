@@ -5,6 +5,7 @@ import haxe.macro.Context;
 import haxe.macro.Expr;
 import sys.FileSystem;
 import sys.io.Process;
+import sys.io.File;
 
 using StringTools;
 
@@ -19,28 +20,6 @@ class BuildXML {
             </target>
         \")";
 
-		/*var process:Process = new Process('where', ['python']);
-			if (process.exitCode() != 0) {
-				var message:String = process.stderr.readAll().toString();
-				var pos:Position = Context.currentPos();
-				Context.error("Cannot find python on your system! " + message, pos);
-			}
-
-
-			var possiblePaths:Array<String> = process.stdout.readLine().split("\n");
-
-			var foundPath:String;
-
-			for(path in possiblePaths){
-				if(path.contains("Python315")){
-					foundPath = path;
-					break;
-				}
-			}
-
-			buildXML = buildXML.replace('__PYTHON__PATH__', foundPath.replace("python.exe", 'libs/python315.lib'));
-			buildXML = buildXML.replace("\\", "/"); */
-
 		var findLib:Process = new Process('haxelib', ['libpath', 'hxpybind11']);
 		if (findLib.exitCode() != 0) {
 			var message:String = findLib.stderr.readAll().toString();
@@ -52,13 +31,21 @@ class BuildXML {
 		var libPath:String = findLib.stdout.readLine();
 		findLib.close();
 
-		if (Context.defined('COMPILE_CPYTHON') || !FileSystem.exists('${libPath}external/cpython/libpython3.15d.a')) {
+		var outputFile:String = Sys.systemName() == "Windows" ? "PCbuild/amd64/python315_d.lib" : "libpython3.15d.a";
+
+		if (Context.defined('COMPILE_CPYTHON') || !FileSystem.exists('${libPath}external/cpython/$outputFile')) {
 			Sys.println("Compiling CPython...");
 			var oldDir:String = Sys.getCwd();
 
+			var commands:Array<String> = Sys.systemName() == "Windows" ? [
+				'cd ${libPath}external/cpython/PCbuild',
+				'build.bat -c Debug',
+				'amd64/python_d.exe'
+			] : ['cd ${libPath}external/cpython', './configure --with-pydebug', 'make'];
+
 			try {
-				for (command in ['cd ${libPath}external/cpython', './configure --with-pydebug', 'make']) {
-                    Sys.command(command);
+				for (command in commands) {
+					Sys.command(command);
 					while (command == 'make' && !FileSystem.exists('${libPath}external/cpython/Makefile')) {
 						Sys.sleep(0.1);
 					}
@@ -69,7 +56,12 @@ class BuildXML {
 			Sys.command('cd $oldDir');
 		}
 
-		buildXML = buildXML.replace('__PYTHON__LIB__FILE__', "${cpython_folder}/libpython3.15d.a");
+		if (Sys.systemName() == "Windows") {
+			// ????
+			File.copy('${libPath}external/cpython/$outputFile', '${libPath}external/cpython/${outputFile = outputFile.replace('_d', '')}');
+		}
+
+		buildXML = buildXML.replace('__PYTHON__LIB__FILE__', "${cpython_folder}/" + outputFile);
 		buildXML = buildXML.replace("\\", "/");
 
 		Compiler.addGlobalMetadata('pybind11', buildXML);
