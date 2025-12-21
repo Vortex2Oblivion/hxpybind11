@@ -37,8 +37,4 @@
 
 		<compilerflag value="-DCONFIG_64" />
 	</files>
-
-	<target id="haxe">
-			<lib name="${cpython_folder}/libpython3.15d.a" />
-	</target>
 </xml>

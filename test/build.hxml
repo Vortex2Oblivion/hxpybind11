@@ -4,3 +4,4 @@
 --library hxpybind11
 --dce no
 --macro CopyFile.run()
+--define message.reporting=pretty
