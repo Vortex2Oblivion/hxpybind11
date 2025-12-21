@@ -3,11 +3,11 @@ import sys.io.File;
 import pybind11.*;
 
 @:build(pybind11.macros.BindModule.bindModules())
-@:module("example", [
+@:embeddedModule("example", [
 	["add", "A function that adds two numbers"],
 	["subtract", "A function that subtracts two numbers"]
 ], "pybind11 example plugin")
-@:module("haxemath", [
+@:embeddedModule("haxemath", [
 	["Math.random", "A function that returns a random number"]
 ], "haxe math functions")
 class Main {

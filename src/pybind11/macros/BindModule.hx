@@ -20,15 +20,15 @@ class BindModule {
 		return namespaceString;
 	}
 
-    // riconuts my goat thank you so much for this
+	// riconuts my goat thank you so much for this
 	public static macro function bindModules():Array<Field> {
 		var localClass = Context.getLocalClass();
 		var cl:ClassType = localClass.get();
 		var clMeta = cl.meta;
 
-        var outputCode:String = clMeta.extract(':cppFileCode').length > 0 ? ExprTools.getValue(clMeta.extract(':cppFileCode')[0].params[0]) : "";
+		var outputCode:String = clMeta.extract(':cppFileCode').length > 0 ? ExprTools.getValue(clMeta.extract(':cppFileCode')[0].params[0]) : "";
 
-		for (meta in clMeta.extract(':module')) {
+		function bindModule(meta:MetadataEntry, embedded:Bool = false):Void {
 			var module:String = ExprTools.getValue(meta.params[0]);
 
 			var funcs:Array<Array<String>> = ExprTools.getValue(meta.params[1]);
@@ -36,15 +36,13 @@ class BindModule {
 			var cppFuncDefs = "";
 
 			for (funcData in funcs) {
-
 				var split = funcData[0].split('.');
 
 				var funcName = split[split.length - 1];
 
-
 				var className = cl.name;
 
-				if(funcName.split('.').length >= 1 && split[0] != funcName) {
+				if (funcName.split('.').length >= 1 && split[0] != funcName) {
 					className = split[0];
 				}
 
@@ -63,14 +61,22 @@ class BindModule {
 			};
 
 			outputCode += '
-            PYBIND11_EMBEDDED_MODULE($module, m, pybind11::mod_gil_not_used()) {
+            PYBIND11_${embedded ? "EMBEDDED_" : ""}MODULE($module, m, pybind11::mod_gil_not_used()) {
                 m.doc() = "$doc";
 
                 $cppFuncDefs
             }
             \n
 			';
-            clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
+			clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
+		}
+
+		for (meta in clMeta.extract(':module')) {
+			bindModule(meta, false);
+		}
+
+		for (meta in clMeta.extract(':embeddedModule')) {
+			bindModule(meta, true);
 		}
 
 		return Context.getBuildFields();
