@@ -1,1 +1,2 @@
 --macro pybind11.macros.BuildXML.run()
+-D CONFIG_64

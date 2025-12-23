@@ -18,6 +18,8 @@
 		<compilerflag value="-I${pybind11_folder}/detail" />
         <compilerflag value="-I${pybind11_folder}/eigen" />
         <compilerflag value="-I${pybind11_folder}/stl" />
+				<compilerflag value="-DCONFIG_64" />
+
 	</files>
 
 	<files id="haxe">
