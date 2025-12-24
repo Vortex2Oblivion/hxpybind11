@@ -1,0 +1,9 @@
+#pragma once
+
+
+template<typename T>
+struct GetType {
+    using type = ::Float;
+};
+
+#define EXTRACT_TYPE(inClass) GetType<decltype(inClass)>::type

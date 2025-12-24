@@ -1,4 +1,3 @@
-import sys.io.File;
 import pybind11.*;
 
 @:build(pybind11.macros.BindModule.bindModules())
@@ -13,6 +12,9 @@ class Main {
 
 	static function main() {
 		var guard:ScopedInterpreter = new ScopedInterpreter();
-		PyBind11.exec(File.getContent("script.py"));
+
+		var haxemath:Module = Module.importModule("haxemath");
+		var result:Float = haxemath.attr("random").call().castTo(Float);
+		trace(result);
 	}
 }

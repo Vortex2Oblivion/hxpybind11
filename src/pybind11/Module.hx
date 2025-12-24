@@ -8,10 +8,16 @@ import cpp.ConstCharStar;
 extern class Module extends Object {
 	var doc(get, set):ConstCharStar;
 
-	@:native("def")
 	inline function def(name:ConstCharStar, func:haxe.Constraints.Function, doc:ConstCharStar):Module {
 		return untyped __cpp__("{0}.def({1}, {2}.call, {3})", this, name, Function.fromStaticFunction(func), doc);
 	}
+
+	inline function reload():Void {
+		untyped __cpp__("{0}.reload()", this);
+	}
+
+	@:native("pybind11::module_::import")
+	static function importModule(name:ConstCharStar):Module;
 
 	private inline function set_doc(value:ConstCharStar):ConstCharStar {
 		return untyped __cpp__("{1}.doc() = {0}", value, this);

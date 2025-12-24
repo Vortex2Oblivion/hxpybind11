@@ -4,6 +4,9 @@
 	<set name="cpython_folder" value="${haxelib:hxpybind11}/external/cpython" />
 
 	<files id="__main__">
+
+		<compilerflag value="-I${haxelib:hxpybind11}/project" />
+
 		<compilerflag value="-I${cpython_folder}/Include" />
 		<compilerflag value="-I${cpython_folder}/Include/cpython" />
 		<compilerflag value="-I${cpython_folder}/Include/internal" />
@@ -16,13 +19,15 @@
 		<compilerflag value="-I${pybind11_folder}/pybind11" />
 		<compilerflag value="-I${pybind11_folder}/conduit" />
 		<compilerflag value="-I${pybind11_folder}/detail" />
-        <compilerflag value="-I${pybind11_folder}/eigen" />
-        <compilerflag value="-I${pybind11_folder}/stl" />
-				<compilerflag value="-DCONFIG_64" />
+		<compilerflag value="-I${pybind11_folder}/eigen" />
+		<compilerflag value="-I${pybind11_folder}/stl" />
+		<compilerflag value="-DCONFIG_64" />
 
 	</files>
 
 	<files id="haxe">
+		<compilerflag value="-I${haxelib:hxpybind11}/project" />
+
 		<compilerflag value="-I${cpython_folder}/Include" />
 		<compilerflag value="-I${cpython_folder}/Include/cpython" />
 		<compilerflag value="-I${cpython_folder}/Include/internal" />
@@ -34,8 +39,8 @@
 		<compilerflag value="-I${pybind11_folder}/pybind11" />
 		<compilerflag value="-I${pybind11_folder}/conduit" />
 		<compilerflag value="-I${pybind11_folder}/detail" />
-        <compilerflag value="-I${pybind11_folder}/eigen" />
-        <compilerflag value="-I${pybind11_folder}/stl" />
+		<compilerflag value="-I${pybind11_folder}/eigen" />
+		<compilerflag value="-I${pybind11_folder}/stl" />
 
 		<compilerflag value="-DCONFIG_64" />
 	</files>
