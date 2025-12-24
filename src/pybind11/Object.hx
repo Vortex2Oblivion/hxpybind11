@@ -2,4 +2,7 @@ package pybind11;
 
 @:include("pybind11/pytypes.h")
 @:native("pybind11::object")
-extern class Object extends Handle {}
+extern class Object extends Handle {
+    @:native("release")
+    function release():Handle;
+}
