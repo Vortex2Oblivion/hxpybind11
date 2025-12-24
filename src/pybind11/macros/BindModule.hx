@@ -1,12 +1,11 @@
 package pybind11.macros;
 
 #if macro
+import haxe.macro.Compiler;
 import haxe.macro.Context;
 import haxe.macro.Expr;
-import haxe.macro.Type;
 import haxe.macro.ExprTools;
-
-using StringTools;
+import haxe.macro.Type;
 #end
 
 class BindModule {
@@ -41,6 +40,16 @@ class BindModule {
 				}
 			}
 		}
+
+		Compiler.registerCustomMetadata({
+			targets: [ClassField],
+			platforms: [Cpp],
+			params: [],
+			links: ["https://pybind11.readthedocs.io/en/stable/advanced/embedding.html"],
+			metadata: ":embeddedModule",
+			doc: "Binds a function to an embedded Python module."
+		}, "hxpybind11");
+
 		return fields;
 		#end
 	}
