@@ -1,6 +1,8 @@
 #pragma once
 
 
+#define Single Float
+
 template<typename T>
 struct GetType {
     using type = ::Float;
