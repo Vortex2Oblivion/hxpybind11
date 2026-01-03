@@ -8,7 +8,7 @@ import cpp.ConstCharStar;
 extern class Module extends Object {
 	var doc(get, set):ConstCharStar;
 
-	inline function def(name:ConstCharStar, func:haxe.Constraints.Function, doc:ConstCharStar):Module {
+	inline function def(name:ConstCharStar, func:haxe.Constraints.Function, ?doc:ConstCharStar):Module {
 		return untyped __cpp__("{0}.def({1}, {2}.call, {3})", this, name, Function.fromStaticFunction(func), doc);
 	}
 
