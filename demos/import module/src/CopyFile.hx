@@ -10,6 +10,6 @@ class CopyFile {
 		if (!FileSystem.exists(outputDir)) {
 			FileSystem.createDirectory(outputDir);
 		}
-		File.copy("script.py", '${outputDir}/script.py');
+		File.copy("calc.py", '${outputDir}/calc.py');
 	}
 }

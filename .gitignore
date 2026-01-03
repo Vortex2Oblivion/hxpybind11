@@ -1,2 +1,2 @@
-test/bin
 .vscode/
+demos/*/bin
