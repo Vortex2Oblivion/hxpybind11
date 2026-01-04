@@ -1,5 +1,4 @@
 --library hxpybind11
 --cpp test/bin/cpp
---class-path demos/execute code
---class-path demos/execute code/src
+--class-path demos/class/src
 --main Main

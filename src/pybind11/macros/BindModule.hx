@@ -40,6 +40,14 @@ class BindModule {
 					clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
 					#end
 				}
+				else if(meta.name == ":module") {
+					#if !display
+					field.meta.push({name: ":keep", params: [], pos: meta.pos});
+					field.meta.push({name: ":unreflective", params: [], pos: meta.pos});
+					outputCode += '\nPYBIND11_EMBEDDED_MODULE(${field.name}, m, pybind11::mod_gil_not_used()) { ${packageToNamepsace(cl.pack)}${cl.name}_obj::${field.name}(m); }';
+					clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
+					#end
+				}
 			}
 		}
 
