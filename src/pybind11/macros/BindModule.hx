@@ -36,7 +36,7 @@ class BindModule {
 					#if !display
 					field.meta.push({name: ":keep", params: [], pos: meta.pos});
 					field.meta.push({name: ":unreflective", params: [], pos: meta.pos});
-					outputCode += '\nPYBIND11_EMBEDDED_MODULE(${field.name}, m, pybind11::mod_gil_not_used()) { ${packageToNamepsace(cl.pack)}${cl.name}_obj::${field.name}(m); }';
+					outputCode += '\nPYBIND11_EMBEDDED_MODULE(${field.name}, m, pybind11::mod_gil_not_used()) { pybind11::class_<String>(m, "String").def(pybind11::init<const char *>()); pybind11::implicitly_convertible<std::string, ::String>(); ${packageToNamepsace(cl.pack)}${cl.name}_obj::${field.name}(m); }';
 					clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
 					#end
 				}
@@ -44,7 +44,7 @@ class BindModule {
 					#if !display
 					field.meta.push({name: ":keep", params: [], pos: meta.pos});
 					field.meta.push({name: ":unreflective", params: [], pos: meta.pos});
-					outputCode += '\nPYBIND11_EMBEDDED_MODULE(${field.name}, m, pybind11::mod_gil_not_used()) { ${packageToNamepsace(cl.pack)}${cl.name}_obj::${field.name}(m); }';
+					outputCode += '\nPYBIND11_MODULE(${field.name}, m, pybind11::mod_gil_not_used()) { pybind11::class_<String>(m, "String").def(pybind11::init<const char *>()); pybind11::implicitly_convertible<std::string, ::String>(); ${packageToNamepsace(cl.pack)}${cl.name}_obj::${field.name}(m); }';
 					clMeta.add(":cppFileCode", [{pos: meta.pos, expr: EConst(CString(outputCode))}], meta.pos);
 					#end
 				}

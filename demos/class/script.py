@@ -1,5 +1,5 @@
 import example
 
-p = example.Pet()
 
-print(p.getName())
+p = example.Pet.new("Molly")
+print(p)

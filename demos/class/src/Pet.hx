@@ -1,13 +1,16 @@
 package;
 
-class Pet {
-	private var name:String;
+import cpp.ConstCharStar;
 
-	public function new() {
-		this.name = "a";
+class Pet {
+	private var name:ConstCharStar;
+
+	public function new(name:String) {
+		this.name = name;
+		trace(name);
 	}
 
-	public function getName(self:String):String {
+	public function getName():ConstCharStar {
 		trace(name);
 		return name;
 	}

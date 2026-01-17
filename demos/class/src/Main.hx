@@ -1,12 +1,12 @@
 import sys.io.File;
-import pybind11.PyClass;
 import pybind11.*;
 
 @:build(pybind11.macros.BindModule.bindModules())
 class Main {
-	@:module
+	@:embeddedModule
 	static function example(m:Module) {
-		new PyClass<Pet>(m, "Pet").def(PyBind11.init(String)).def("getName");
+		var p = new PyClass<Pet>(m, "Pet");
+		untyped __cpp__('{0}.def("new", &Pet_obj::__new)', p);
 	}
 
 	static function main() {

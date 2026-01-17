@@ -14,10 +14,10 @@ extern class PyClass<T> extends GenericType {
 	function new(scope:Handle, name:ConstCharStar):Void;
 
 	overload extern inline function def(name:ConstCharStar):PyClass<T> {
-		return untyped __cpp__("{0}.def({1}, ::cpp::Function<void(::String)>(&::Pet_obj::getName).call)", this, name);
+		return untyped __cpp__("{0}.def({1}, &::Pet_obj::getName)", this, name);
 	}
 
-	overload extern inline function def<T>(init:Constructor):PyClass<T> {
+	overload extern inline function def<T>(init:Constructor<T>):PyClass<T> {
 		return untyped __cpp__("{0}.def({1})", this, init);
 	}
 }
